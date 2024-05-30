@@ -54,29 +54,42 @@ public class ManoLesiaiRegistration {
 
 
         Utils._driver.get("https://www.manolesiai.lt/lt/register");
+        WebDriverWait wait = new WebDriverWait(Utils._driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-cookiefirst-action='accept']")));
         Utils._driver.findElement(By.cssSelector("[data-cookiefirst-action='accept']")).click();//accept cookies
     }
 
     public void fillPersonalInformation() {
         //fill in Name
-        _driver.findElement(By.id("sylius_customer_registration_firstName")).sendKeys(name);
+        Utils._driver.findElement(By.id("sylius_customer_registration_firstName")).sendKeys(name);
 
         //fill in Lastname
-        _driver.findElement(By.id("sylius_customer_registration_lastName")).sendKeys(lastname);
+        Utils._driver.findElement(By.id("sylius_customer_registration_lastName")).sendKeys(lastname);
 
         //fill in Email
-        _driver.findElement(By.id("sylius_customer_registration_email")).sendKeys(email);
+        Utils._driver.findElement(By.id("sylius_customer_registration_email")).sendKeys(email);
     }
 
     public void fillPassword() {
         //fill in Password
-        _driver.findElement(By.id("sylius_customer_registration_user_plainPassword_first")).sendKeys(password);
+        Utils._driver.findElement(By.id("sylius_customer_registration_user_plainPassword_first")).sendKeys(password);
 
         //repeat Password
-        _driver.findElement(By.id("sylius_customer_registration_user_plainPassword_second")).sendKeys(repeatPassword);
+        Utils._driver.findElement(By.id("sylius_customer_registration_user_plainPassword_second")).sendKeys(repeatPassword);
     }
 
     public void getMessage() {
+        Utils._driver.findElement(By.xpath("/html/body/div[3]/div/div/div[2]/div/form/button")).click();
+        try {
+            Utils._driver.findElement(By.className("d-flex align-items-start"));
 
+                    //
+
+
+
+
+        /*
+        <span class="form-error-message">Šis el. paštas jau naudojamas.</span>
+         */
     }
 }
