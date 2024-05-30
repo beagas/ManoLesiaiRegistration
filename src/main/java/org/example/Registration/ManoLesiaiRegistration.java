@@ -18,6 +18,7 @@ public class ManoLesiaiRegistration {
     String email;
     String password;
     String repeatPassword;
+
     public ManoLesiaiRegistration(String name, String lastname, String email, String password, String repeatPassword) {
         this.name = name;
         this.lastname = lastname;
@@ -80,10 +81,10 @@ public class ManoLesiaiRegistration {
 
     public void getMessage() {
         Utils._driver.findElement(By.xpath("/html/body/div[3]/div/div/div[2]/div/form/button")).click();
-        try {
+
             Utils._driver.findElement(By.className("d-flex align-items-start"));
 
-                    //
+            //
 
 
 
@@ -91,5 +92,6 @@ public class ManoLesiaiRegistration {
         /*
         <span class="form-error-message">Šis el. paštas jau naudojamas.</span>
          */
+
     }
 }
