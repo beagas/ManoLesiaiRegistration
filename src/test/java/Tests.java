@@ -56,4 +56,29 @@ public class Tests {
         reg01.fillRegistration();
     }
 
+    @Test
+    public void ml() {
+        Utils._driver.get("https://www.manolesiai.lt/lt/register");
+        Utils._driver.findElement(By.cssSelector("[data-cookiefirst-action='accept']")).click();//accept cookies
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //fill in Name
+        _driver.findElement(By.id("sylius_customer_registration_firstName")).sendKeys("jonas");
+
+        //fill in Lastname
+        _driver.findElement(By.id("sylius_customer_registration_lastName")).sendKeys("jonas");
+
+        //fill in Email
+        _driver.findElement(By.id("sylius_customer_registration_email")).sendKeys("jonas@gmail.com");
+        _driver.findElement(By.id("sylius_customer_registration_user_plainPassword_first")).sendKeys("jonas");
+
+        //repeat Password
+        _driver.findElement(By.id("sylius_customer_registration_user_plainPassword_second")).sendKeys("jonas");
+
+    }
+
 }

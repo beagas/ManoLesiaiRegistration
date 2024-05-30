@@ -41,24 +41,20 @@ public class ManoLesiaiRegistration {
 
     public void openRegistration() {
         //Open Dropdown menu
-        Utils._driver.get("https://www.manolesiai.lt/lt/");
-        Utils._driver.findElement(By.cssSelector("[data-cookiefirst-action='accept']")).click();
-        Utils._driver.findElement(By.xpath("/html/body/div[2]/header/div/div[2]/nav/div/div[2]/div/div[3]/div")).click();
+//        Utils._driver.get("https://www.manolesiai.lt/lt/");
+//        Utils._driver.findElement(By.cssSelector("[data-cookiefirst-action='accept']")).click();//accept cookies
+//        Utils._driver.findElement(By.xpath("/html/body/div[2]/header/div/div[2]/nav/div/div[2]/div/div[3]/div")).click();//open dropdown menu
+//
+//        WebDriverWait wait = new WebDriverWait(Utils._driver, Duration.ofSeconds(10));//wait for the dropdown window
+//        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("\"/html/body/div[3]/div/div[1]/div/div[2]\"")));
+//
+//        //Utils._driver.findElement(By.xpath("/html/body/div[3]/div/div[1]/div/div[2]")).click();
+//        //Utils._driver.findElements(By.className("dropdown-item")).get(3).click();
+//        //Utils._driver.findElement(By.xpath("//a[text()='Užsiregistruoti']")).click();
 
-        WebDriverWait wait = new WebDriverWait(Utils._driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("\"/html/body/div[3]/div/div[1]/div/div[2]\"")));
 
-        //Utils._driver.findElement(By.xpath("/html/body/div[3]/div/div[1]/div/div[2]")).click();
-        //Utils._driver.findElements(By.className("dropdown-item")).get(3).click();
-
-
-        //Open Registration
-        WebDriverWait wait1 = new WebDriverWait(_driver, Duration.ofSeconds(10));
-        wait1.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"mainNavbar\"]/div[2]/div/div[3]/div/div/a[2]")));
-
-        //Open Registration
-        _driver.findElement(By.xpath("/html/body/div[2]/header/div/div[3]/div[1]/div[3]/div/div/a[2]")).click();
-        _driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        Utils._driver.get("https://www.manolesiai.lt/lt/register");
+        Utils._driver.findElement(By.cssSelector("[data-cookiefirst-action='accept']")).click();//accept cookies
     }
 
     public void fillPersonalInformation() {
