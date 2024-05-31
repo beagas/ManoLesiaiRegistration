@@ -18,6 +18,7 @@ public class ManoLesiaiRegistration {
     String email;
     String password;
     String repeatPassword;
+    String goodRegistration;
 
     public ManoLesiaiRegistration(String name, String lastname, String email, String password, String repeatPassword) {
         this.name = name;
@@ -80,12 +81,14 @@ public class ManoLesiaiRegistration {
     }
 
     public void getMessage() {
+        //submit registration
         Utils._driver.findElement(By.xpath("/html/body/div[3]/div/div/div[2]/div/form/button")).click();
 
-            Utils._driver.findElement(By.className("d-flex align-items-start"));
-
-            //
-
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
 
