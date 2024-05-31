@@ -16,7 +16,6 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class Tests {
-    public static WebDriver _driver;
 
     @BeforeClass
     public static String generateRandomEmail() {

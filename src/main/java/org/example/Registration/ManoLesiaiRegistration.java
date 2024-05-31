@@ -38,7 +38,7 @@ public class ManoLesiaiRegistration {
         openRegistration();
         fillPersonalInformation();
         fillPassword();
-        getMessage();
+        submitRegistration();
     }
 
     public void openRegistration() {
@@ -80,7 +80,7 @@ public class ManoLesiaiRegistration {
         Utils._driver.findElement(By.id("sylius_customer_registration_user_plainPassword_second")).sendKeys(repeatPassword);
     }
 
-    public void getMessage() {
+    public void submitRegistration() {
         //submit registration
         Utils._driver.findElement(By.xpath("/html/body/div[3]/div/div/div[2]/div/form/button")).click();
 
@@ -89,12 +89,5 @@ public class ManoLesiaiRegistration {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
-
-        /*
-        <span class="form-error-message">Šis el. paštas jau naudojamas.</span>
-         */
-
     }
 }
