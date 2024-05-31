@@ -51,10 +51,10 @@ public class Tests {
         Utils._driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
-    @Test
+    @Test //positive test
     public void ml_01() {
-        ManoLesiaiRegistration reg01 = new ManoLesiaiRegistration("Jonas", "Jonauskas", "jod5255nas@gmail.com",
-                "Jonas123+", "Jonas");
+        ManoLesiaiRegistration reg01 = new ManoLesiaiRegistration("Jonas", "Jonauskas", generateRandomEmail(),
+                "Jonas123+", "Jonas123+");
         reg01.fillRegistration();
 
         //Expected text
@@ -69,7 +69,7 @@ public class Tests {
         Utils._driver.close();
     }
 
-    @Test
+    @Test //no mandatory fields filled
     public void ml_02() {
         ManoLesiaiRegistration reg01 = new ManoLesiaiRegistration("", "", "",
                 "", "");
@@ -86,43 +86,106 @@ public class Tests {
 
         //Received missing password error text
         Utils._driver.findElement(By.xpath("//span[@class='form-error-message' and text()='Įveskite savo slaptažodį.']"));
+        Utils._driver.close();
     }
 
-    @Test
+    @Test //numbers in name
     public void ml_03() {
         ManoLesiaiRegistration reg01 = new ManoLesiaiRegistration("Jonas123", "Jonaitis", generateRandomEmail(),
-                "", "");
+                "Jonas123+", "Jonas123+");
         reg01.fillRegistration();
 
-        //Received missing name error text
-        Utils._driver.findElement(By.xpath("//span[@class='form-error-message' and text()='Įveskite savo vardą.']"));
-
-        //Received missing lastname error text
-        Utils._driver.findElement(By.xpath("//span[@class='form-error-message' and text()='Įveskite savo pavardę.']"));
-
-        //Received missing email error text
-        Utils._driver.findElement(By.xpath("//span[@class='form-error-message' and text()='Įveskite savo elektroninio pašto adresą.']"));
-
-        //Received missing password error text
-        Utils._driver.findElement(By.xpath("//span[@class='form-error-message' and text()='Įveskite savo slaptažodį.']"));
+        //Received name error text
+        Utils._driver.findElement(By.xpath("//span[@class='form-error-message' and text()='Varde negali būti simbolių ar skaičių']"));
+        Utils._driver.close();
     }
 
-    @Test
+    @Test //symbols in name
     public void ml_04() {
-        ManoLesiaiRegistration reg01 = new ManoLesiaiRegistration("", "", "",
-                "", "");
+        ManoLesiaiRegistration reg01 = new ManoLesiaiRegistration("Jonas~`!@#$%^&*()-_+={}[]|/\\:;\"`<>,.?", "Jonaitis", generateRandomEmail(),
+                "Jonas123+", "Jonas123+");
         reg01.fillRegistration();
 
         //Received missing name error text
-        Utils._driver.findElement(By.xpath("//span[@class='form-error-message' and text()='Įveskite savo vardą.']"));
-
-        //Received missing lastname error text
-        Utils._driver.findElement(By.xpath("//span[@class='form-error-message' and text()='Įveskite savo pavardę.']"));
-
-        //Received missing email error text
-        Utils._driver.findElement(By.xpath("//span[@class='form-error-message' and text()='Įveskite savo elektroninio pašto adresą.']"));
-
-        //Received missing password error text
-        Utils._driver.findElement(By.xpath("//span[@class='form-error-message' and text()='Įveskite savo slaptažodį.']"));
+        Utils._driver.findElement(By.xpath("//span[@class='form-error-message' and text()='Varde negali būti simbolių ar skaičių']"));
+        Utils._driver.close();
     }
+
+    @Test //numbers in lastname
+    public void ml_05() {
+        ManoLesiaiRegistration reg01 = new ManoLesiaiRegistration("Jonas", "Jonaitis123", generateRandomEmail(),
+                "Jonas123+", "Jonas123+");
+        reg01.fillRegistration();
+
+        //Received lastname error text
+        Utils._driver.findElement(By.xpath("//span[@class='form-error-message' and text()='Pavardėje negali būti simbolių']"));
+        Utils._driver.close();
+    }
+
+    @Test //symbols in lastname
+    public void ml_06() {
+        ManoLesiaiRegistration reg01 = new ManoLesiaiRegistration("Jonas", "Jonaitis~`!@#$%^&*()-_+={}[]|/\\:;\"`<>,.?", generateRandomEmail(),
+                "Jonas123+", "Jonas123+");
+        reg01.fillRegistration();
+
+        //Received lastname error text
+        Utils._driver.findElement(By.xpath("//span[@class='form-error-message' and text()='Pavardėje negali būti simbolių']"));
+        Utils._driver.close();
+    }
+
+    @Test //email is already registered
+    public void ml_07() {
+        ManoLesiaiRegistration reg01 = new ManoLesiaiRegistration("Jonas", "Jonaitis", "jonas@gmail.com",
+                "Jonas123+", "Jonas123+");
+        reg01.fillRegistration();
+
+        //Received missing name error text
+        Utils._driver.findElement(By.xpath("//span[@class='form-error-message' and text()='Šis el. paštas jau naudojamas.']"));
+        Utils._driver.close();
+    }
+    @Test //incorrect email
+    public void ml_08() {
+        ManoLesiaiRegistration reg01 = new ManoLesiaiRegistration("Jonas", "Jonaitis123", "jonasgmail.com",
+                "Jonas123+", "Jonas123+");
+        reg01.fillRegistration();
+
+        //Received incorrect email error text
+        Utils._driver.findElement(By.xpath("//span[@class='form-error-message' and text()='Šis adresas yra neteisingas.']"));
+        Utils._driver.close();
+    }
+
+    @Test //email not full
+    public void ml_09() {
+        ManoLesiaiRegistration reg01 = new ManoLesiaiRegistration("Jonas", "Jonaitis123", "jonas@gmail",
+                "Jonas123+", "Jonas123+");
+        reg01.fillRegistration();
+
+        //Received incorrect email error text
+        Utils._driver.findElement(By.xpath("//span[@class='form-error-message' and text()='Šis adresas yra neteisingas.']"));
+        Utils._driver.close();
+    }
+
+    @Test //3 symbol password
+    public void ml_10() {
+        ManoLesiaiRegistration reg01 = new ManoLesiaiRegistration("Jonas", "Jonaitis", generateRandomEmail(),
+                "Jon", "Jon");
+        reg01.fillRegistration();
+
+        //Receive too short password error text
+        Utils._driver.findElement(By.xpath("//span[@class='form-error-message' and text()='Slaptažodis turi būti ilgesnis nei 4 simboliai.']"));
+        Utils._driver.close();
+    }
+
+    @Test //different passwords
+    public void ml_11() {
+        ManoLesiaiRegistration reg01 = new ManoLesiaiRegistration("Jonas", "Jonaitis", generateRandomEmail(),
+                "Jonas123+", "Jonas123");
+        reg01.fillRegistration();
+
+        //Received missing name error text
+        Utils._driver.findElement(By.xpath("//span[@class='form-error-message' and text()='Įvesti slaptažodžiai nesutampa']"));
+        Utils._driver.close();
+    }
+
+
 }
